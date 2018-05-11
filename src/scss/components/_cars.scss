@@ -1,3 +1,5 @@
+/*----- cars
+-------------------------- */
 .cars {
 	
 	.holder {
@@ -15,9 +17,12 @@
 	}
 	
 	.tb-4 {
+		padding: 30px;
+	}
+	
+	.bb {
 		border-bottom: 3px solid $black;
 		border-right: 3px solid $black;
-		padding: 30px;
 		
 		&:nth-child(n + 4) {
 			border-bottom: 0;
@@ -26,7 +31,6 @@
 		&:nth-child(3n) {
 			border-right: 0;
 		}
-		
 	}
 	
 	.car-box {
