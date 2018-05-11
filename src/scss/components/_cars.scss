@@ -1,0 +1,46 @@
+.cars {
+	
+	.holder {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+	
+	.tb-4,
+	.car-box {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.tb-4 {
+		border-bottom: 3px solid $black;
+		border-right: 3px solid $black;
+		padding: 30px;
+		
+		&:nth-child(n + 4) {
+			border-bottom: 0;
+		}
+		
+		&:nth-child(3n) {
+			border-right: 0;
+		}
+		
+	}
+	
+	.car-box {
+		border: 2px solid $black;
+		border-radius: 10px;
+		height: 270px;
+		padding: 20px;
+		
+		img {
+			width: 100%;
+		}
+		
+		span {
+			margin-top: auto;
+		}
+	}
+}
