@@ -5,6 +5,7 @@ var url = 'data.json';
 var carsContainer = document.getElementById("cars-list");
 var search = document.getElementById("search");
 var carBox = document.getElementsByClassName("car-box");
+var scaleWidth =  document.getElementById('scale').offsetWidth;
 
    //json request
     var xml = new XMLHttpRequest();
@@ -13,6 +14,9 @@ var carBox = document.getElementsByClassName("car-box");
 
         var jsonData = JSON.parse(xml.responseText);
         var carsData = jsonData.cars;
+        var distance = jsonData.distance;
+        var trafficLights = jsonData.traffic_lights;
+        var speedLimits = jsonData.speed_limits;
 
         if(xml.status >= 200 && xml.status < 400) {
 

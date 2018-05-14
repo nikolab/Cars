@@ -1,0 +1,32 @@
+/*----- scale distance
+-------------------------- */
+
+.scale {
+	margin: 32px 0;
+	
+	table {
+		width: 100%;
+	}
+	
+	tbody {
+		border: 1px solid $black;
+		border-radius: 10px;
+		
+		td {
+			border-right: 1px solid $gray;
+			
+			&:last-child {
+				border: 0;
+			}
+		}
+	}
+	
+	tr {
+		border-bottom: 1px solid $black;
+	}
+	
+	td {
+		width: 10%;
+		height: 50px;
+	}
+}
