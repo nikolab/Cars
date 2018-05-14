@@ -4,6 +4,7 @@ $( document ).ready(function() {
 var url = 'data.json';
 var carsContainer = document.getElementById("cars-list");
 var search = document.getElementById("search");
+var carBox = document.getElementsByClassName("car-box");
 
    //json request
     var xml = new XMLHttpRequest();
@@ -38,10 +39,11 @@ var search = document.getElementById("search");
 
             var carName = data[i].name,
                 carPic = data[i].image,
-                carSpeed = data[i].speed;
+                carSpeed = data[i].speed,
+                carDesc = data[i].description;
 
 
-            carItem += "<li class='tb-4 bb'><div class='car-box'><img src=" + carPic + " alt='car'><span>" + carName + "</span></div></li>";
+            carItem += "<li class='tb-4 bb'><div class='car-box' onclick='selectCar()'><div class='front'><img src=" + carPic + " alt='car'><span>" + carName + "</span></div><div class='back'><img src=" + carPic + " alt='car'><span>" + carDesc + "</span><span>Speed: " + carSpeed + "</span></div></div></li>";
 
         }
 
@@ -49,7 +51,7 @@ var search = document.getElementById("search");
 
     }
 
-    //filter data through input
+    //filter data from input
     $('#search').keyup(function () {
         var yourtext = $(this).val();
         var li = $("#cars-list > li.tb-4");
@@ -67,6 +69,18 @@ var search = document.getElementById("search");
             li.show().addClass('bb');
         }
     });
+
+    //select carbox
+    function selectCar() {
+        for (var i = 0; i < carBox.length; i++) {
+
+            carBox[i].addEventListener("click", function () {
+                event.preventDefault();
+                alert("radi");
+            });
+        }
+
+    };
 
 });
 
