@@ -12,15 +12,41 @@ var scaleWidth =  document.getElementById('scale').offsetWidth;
     xml.open('GET', url);
     xml.onload = function(){
 
-        var jsonData = JSON.parse(xml.responseText);
-        var carsData = jsonData.cars;
-        var distance = jsonData.distance;
-        var trafficLights = jsonData.traffic_lights;
-        var speedLimits = jsonData.speed_limits;
+        var jsonData = JSON.parse(xml.responseText),
+         carsData = jsonData.cars,
+         distance = jsonData.distance,
+         trafficLightsPos = jsonData.traffic_lights[0].position,
+         trafficLightsTime = jsonData.traffic_lights[0].duration,
+         ratio = scaleWidth/distance,
+         speedLimit = jsonData.speed_limits;
+
+
+        // add speed limit signs
+        function speedLimits(data) {
+
+            var slSign = '';
+
+            for(var i = 0; i < data.length; i++) {
+
+                var limitNumb = data[i].speed,
+                    limitPos = data[i].position * ratio;
+
+                slSign += "<div class='speed-sign' style='left: "+ limitPos +"px'>" + limitNumb + "</div>";
+
+            }
+
+            document.getElementById('scale').insertAdjacentHTML('afterend', slSign);
+
+
+        }
+
 
         if(xml.status >= 200 && xml.status < 400) {
-
+            //display data
             renderCars(carsData);
+
+            //display speed limit signs
+            speedLimits(speedLimit);
 
         } else {
             alert("We connected to the server, but it returned an error.");
