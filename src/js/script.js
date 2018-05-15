@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+// $( document ).ready(function() {
 
 //vars
 var url = 'data.json';
@@ -6,6 +6,8 @@ var carsContainer = document.getElementById("cars-list");
 var search = document.getElementById("search");
 var carBox = document.getElementsByClassName("car-box");
 var scaleWidth =  document.getElementById('scale').offsetWidth;
+var semaphore = document.getElementById('semaphore');
+var light = document.getElementsByClassName('lights');
 
    //json request
     var xml = new XMLHttpRequest();
@@ -13,12 +15,12 @@ var scaleWidth =  document.getElementById('scale').offsetWidth;
     xml.onload = function(){
 
         var jsonData = JSON.parse(xml.responseText),
-         carsData = jsonData.cars,
-         distance = jsonData.distance,
-         trafficLightsPos = jsonData.traffic_lights[0].position,
-         trafficLightsTime = jsonData.traffic_lights[0].duration,
-         ratio = scaleWidth/distance,
-         speedLimit = jsonData.speed_limits;
+            carsData = jsonData.cars,
+            distance = jsonData.distance,
+            ratio = scaleWidth/distance,
+            trafficLightsPos = jsonData.traffic_lights[0].position * ratio,
+            trafficLightsTime = jsonData.traffic_lights[0].duration,
+            speedLimit = jsonData.speed_limits;
 
 
         // add speed limit signs
@@ -37,16 +39,38 @@ var scaleWidth =  document.getElementById('scale').offsetWidth;
 
             document.getElementById('scale').insertAdjacentHTML('afterend', slSign);
 
+        }
 
+        //traffic lights
+        semaphore.style.left = trafficLightsPos;
+
+        var colours = ["red", "green"];
+        var current = colours[0];
+        function changeLights() {
+
+            if(current == colours[0]) {
+                light[0].style.background = current;
+                light[1].style.background = 'gray';
+                current = colours[1];
+            } else if (current == colours[1]) {
+                light[0].style.background = 'gray';
+                light[1].style.background = current;
+                current = colours[0];
+            }
         }
 
 
+        //display data
         if(xml.status >= 200 && xml.status < 400) {
-            //display data
+
+            //display cars
             renderCars(carsData);
 
             //display speed limit signs
             speedLimits(speedLimit);
+
+            //traffic lights
+            setInterval(changeLights, trafficLightsTime);
 
         } else {
             alert("We connected to the server, but it returned an error.");
@@ -106,11 +130,11 @@ var scaleWidth =  document.getElementById('scale').offsetWidth;
 
             carBox[i].addEventListener("click", function () {
                 event.preventDefault();
-                alert("radi");
+                // alert("radi");
             });
         }
 
     };
 
-});
+// });
 

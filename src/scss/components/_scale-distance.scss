@@ -35,17 +35,8 @@
 	}
 }
 
-//speed sign
-
-.speed-sign {
-	position: absolute;
-	top: 120%;
-	border: 4px solid $red;
-	border-radius: 50%;
-	padding: 10px;
-	font-size: 18px;
-	font-weight: bold;
-	color: $black;
+.speed-sign,
+.semaphore {
 	
 	&::before {
 		content: '';
@@ -58,5 +49,39 @@
 		@include horizontal-align;
 		margin: 0 auto;
 		z-index: -1;
+	}
+}
+
+//speed sign
+.speed-sign {
+	position: absolute;
+	top: 120%;
+	border: 4px solid $red;
+	border-radius: 50%;
+	padding: 10px;
+	font-size: 18px;
+	font-weight: bold;
+	color: $black;
+}
+
+//semaphore
+.semaphore {
+	padding: 2px;
+	border: 1px solid $black;
+	border-radius: 10px;
+	display: inline-block;
+	position: absolute;
+	top: 120%;
+	
+	&::before {
+		bottom: 151%;
+	}
+	
+	.lights {
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		margin: 5px;
+		background: $gray;
 	}
 }
