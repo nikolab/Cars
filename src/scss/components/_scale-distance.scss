@@ -18,6 +18,15 @@
 		
 		td {
 			border-right: 1px solid $gray;
+			position: relative;
+			
+			img {
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				max-width: 50px;
+			}
 			
 			&:last-child {
 				border: 0;
