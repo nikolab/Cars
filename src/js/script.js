@@ -1,13 +1,19 @@
-// $( document ).ready(function() {
+$( document ).ready(function() {
 
 //vars
-var url = 'data.json';
-var carsContainer = document.getElementById("cars-list");
-var search = document.getElementById("search");
-var carBox = document.getElementsByClassName("car-box");
-var scaleWidth =  document.getElementById('scale').offsetWidth;
-var semaphore = document.getElementById('semaphore');
-var light = document.getElementsByClassName('lights');
+var url = 'data.json',
+    carsContainer = document.getElementById("cars-list"),
+    search = document.getElementById("search"),
+    carBox = document.getElementsByClassName("car-box"),
+    scaleWidth =  document.getElementById('scale').offsetWidth,
+    semaphore = document.getElementById('semaphore'),
+    light = document.getElementsByClassName('lights'),
+    start = document.getElementById('start'),
+    animTime = document.getElementById('animation-interval'),
+    carName,
+    carPic,
+    carSpeed,
+    carDesc;
 
 //json request
 var xml = new XMLHttpRequest();
@@ -75,6 +81,9 @@ xml.onload = function(){
         //select car
         selectCar();
 
+        //animate cars
+        animateCars()
+
     } else {
         alert("We connected to the server, but it returned an error.");
     }
@@ -94,13 +103,13 @@ function renderCars(data) {
 
     for(var i = 0; i < data.length; i++) {
 
-        var carName = data[i].name,
-            carPic = data[i].image,
-            carSpeed = data[i].speed,
+         carName = data[i].name;
+            carPic = data[i].image;
+            carSpeed = data[i].speed;
             carDesc = data[i].description;
 
 
-        carItem += "<li class='tb-4 bb'><div class='car-box'><div class='front'><img src=" + carPic + " alt='car'><span>" + carName + "</span></div><div class='back'><img src=" + carPic + " alt='car'><span>" + carDesc + "</span><span>Speed: " + carSpeed + "</span></div></div></li>";
+        carItem += "<li class='tb-4 bb'><div class='car-box'><div class='front'><img src=" + carPic + " alt='car'><span>" + carName + "</span></div><div class='back'><img src=" + carPic + " alt='car'><span>" + carDesc + "</span><span class='speed'>Speed: " + carSpeed + "</span></div></div></li>";
 
     }
 
@@ -133,11 +142,16 @@ function selectCar() {
 
         carBox[i].addEventListener("click", function () {
             //event.preventDefault();
+            var speed = this.getElementsByClassName('speed')[0].innerHTML.match(/\d+/g).map(Number);
             var imgSrc = this.getElementsByTagName('img')[0].src;
             var table = document.getElementById('road-distance');
+
+
             for (var i = 0; i < table.rows.length; i++) {
                 var firstTd = table.rows[i].cells[0];
                 var img = document.createElement('img');
+                img.className = 'race-car';
+                img.dataset.speed = speed[0];
                 img.src = imgSrc;
                 if (!firstTd.hasChildNodes())
                 firstTd.appendChild(img);
@@ -146,6 +160,20 @@ function selectCar() {
     }
 }
 
+//animate cars
+function animateCars() {
+    start.addEventListener('click', function () {
+      var interval = animTime.value,
+          car = document.getElementsByClassName('race-car');
 
-// });
+        for (var i = 0; i < car.length; i++) {
+            var carSpeed = car[i].getAttribute('data-speed');
+            car[i].style.left = "1000%";
+        }
+
+    });
+}
+
+
+});
 
