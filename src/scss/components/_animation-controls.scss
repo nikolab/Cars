@@ -1,0 +1,19 @@
+/*----- animation controls
+-------------------------------- */
+.animation-control {
+	padding: 120px 0 48px;
+	
+	.wrapper {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+	}
+	
+	.animation-time {
+		padding: 8px;
+		border-radius: 10px;
+		border: 2px solid $blue;
+		outline: none;
+		margin-right: 10px;
+	}
+}
